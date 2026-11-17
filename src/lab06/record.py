@@ -21,8 +21,11 @@ def record(algo: str, env_id: str = "CartPole-v1", episodes: int = 5, seed: int 
     (ROOT / "docs/img").mkdir(parents=True, exist_ok=True)
     path = MODELS / f"{algo}.zip"
     model = ALGOS[algo].load(path, device="cpu")
-    font_path = ("C:/Windows/Fonts/arial.ttf" if Path("C:/Windows/Fonts/arial.ttf").exists()
-                 else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+    font_path = (
+        "C:/Windows/Fonts/arial.ttf"
+        if Path("C:/Windows/Fonts/arial.ttf").exists()
+        else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    )
     font = ImageFont.truetype(font_path, 20)
     env = gym.make(env_id, render_mode="rgb_array")
     fps = env.metadata["render_fps"]
@@ -41,23 +44,45 @@ def record(algo: str, env_id: str = "CartPole-v1", episodes: int = 5, seed: int 
                     frame = Image.fromarray(env.render())
                     draw = ImageDraw.Draw(frame)
                     draw.rectangle((0, 0, 600, 76), fill="#13223b")
-                    draw.text((16, 8), f"{algo.upper()} | CartPole-v1 | Episode {i + 1}/{episodes}", font=font, fill="white")
-                    draw.text((16, 40), f"seed={seed + i}   step={steps}/500   return={reward_sum:.0f}",
-                              font=font, fill="#8ee6c6")
+                    draw.text(
+                        (16, 8), f"{algo.upper()} | CartPole-v1 | Episode {i + 1}/{episodes}", font=font, fill="white"
+                    )
+                    draw.text(
+                        (16, 40),
+                        f"seed={seed + i}   step={steps}/500   return={reward_sum:.0f}",
+                        font=font,
+                        fill="#8ee6c6",
+                    )
                     writer.append_data(np.asarray(frame))
                     frames += 1
                     if i == 0 and steps == 250:
                         frame.save(ROOT / "docs/img" / f"{algo}_episode.png")
                     if terminated or truncated:
                         break
-                rows.append({"episode": i + 1, "seed": seed + i, "reward": reward_sum, "length": steps,
-                             "terminated": bool(terminated), "truncated": bool(truncated)})
+                rows.append(
+                    {
+                        "episode": i + 1,
+                        "seed": seed + i,
+                        "reward": reward_sum,
+                        "length": steps,
+                        "terminated": bool(terminated),
+                        "truncated": bool(truncated),
+                    }
+                )
     finally:
         env.close()
-    manifest = {"algo": algo, "env": env_id, "episodes": rows, "fps": fps, "frames": frames,
-                "duration_seconds": frames / fps, "model_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-                "video_sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "file": output.name,
-                "editing": "No cuts or speed changes; original Gymnasium frames with live counters."}
+    manifest = {
+        "algo": algo,
+        "env": env_id,
+        "episodes": rows,
+        "fps": fps,
+        "frames": frames,
+        "duration_seconds": frames / fps,
+        "model_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "video_sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
+        "file": output.name,
+        "editing": "No cuts or speed changes; original Gymnasium frames with live counters.",
+    }
     (RESULTS / f"video_{algo}.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(output)
 

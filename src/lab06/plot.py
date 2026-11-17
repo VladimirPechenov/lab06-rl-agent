@@ -15,16 +15,21 @@ def plot():
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.5), sharey=True)
     for algo, color in [("ppo", "#2563eb"), ("dqn", "#d97706")]:
         frame = pd.read_csv(RESULTS / algo / "train.monitor.csv", comment="#")
-        axes[0].plot(frame.l.cumsum(), frame.r.rolling(100, min_periods=1).mean(),
-                     label=algo.upper(), color=color)
+        axes[0].plot(frame.l.cumsum(), frame.r.rolling(100, min_periods=1).mean(), label=algo.upper(), color=color)
         points = json.loads((RESULTS / algo / "validation.json").read_text())
-        axes[1].errorbar([p["timesteps"] for p in points], [p["mean_reward"] for p in points],
-                         yerr=[p["std_reward"] for p in points], label=algo.upper(), color=color,
-                         marker="o", capsize=2)
+        axes[1].errorbar(
+            [p["timesteps"] for p in points],
+            [p["mean_reward"] for p in points],
+            yerr=[p["std_reward"] for p in points],
+            label=algo.upper(),
+            color=color,
+            marker="o",
+            capsize=2,
+        )
     for ax in axes:
         ax.axhline(450, color="#64748b", ls="--", label="Lab threshold: 450")
         ax.set_xlabel("Environment steps")
-        ax.grid(alpha=.2)
+        ax.grid(alpha=0.2)
         ax.set_ylim(0, 600)
         ax.legend(fontsize=8)
     axes[0].set_ylabel("Episode return")

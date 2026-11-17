@@ -34,8 +34,12 @@ class ValidationCallback(BaseCallback):
         finally:
             env.close()
         rewards = [e["reward"] for e in episodes]
-        row = {"timesteps": step, "mean_reward": float(np.mean(rewards)),
-               "std_reward": float(np.std(rewards)), "rewards": rewards}
+        row = {
+            "timesteps": step,
+            "mean_reward": float(np.mean(rewards)),
+            "std_reward": float(np.std(rewards)),
+            "rewards": rewards,
+        }
         self.rows.append(row)
         (self.folder / "validation.json").write_text(json.dumps(self.rows, indent=2), encoding="utf-8")
         self.logger.record("validation/mean_reward", row["mean_reward"])
@@ -63,20 +67,31 @@ def train(cfg: dict):
     env = Monitor(gym.make(cfg["env"]), str(folder / "train.monitor.csv"))
     started = time.perf_counter()
     try:
-        model = ALGOS[cfg["algo"]](cfg["policy"], env, seed=cfg["seed"], verbose=0,
-                                   device=cfg["device"], tensorboard_log=str(RUNS),
-                                   **cfg.get("hyperparams", {}))
-        model.learn(total_timesteps=cfg["total_timesteps"], tb_log_name=cfg["algo"],
-                    callback=ValidationCallback(cfg, folder))
+        model = ALGOS[cfg["algo"]](
+            cfg["policy"],
+            env,
+            seed=cfg["seed"],
+            verbose=0,
+            device=cfg["device"],
+            tensorboard_log=str(RUNS),
+            **cfg.get("hyperparams", {}),
+        )
+        model.learn(
+            total_timesteps=cfg["total_timesteps"], tb_log_name=cfg["algo"], callback=ValidationCallback(cfg, folder)
+        )
         elapsed = time.perf_counter() - started
         MODELS.mkdir(exist_ok=True)
         path = MODELS / f"{cfg['algo']}.zip"
         model.save(path)
-        meta = {"config": cfg, "actual_timesteps": model.num_timesteps,
-                "wall_seconds_including_validation": elapsed,
-                "model_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-                "platform": platform.platform(), "python": platform.python_version(),
-                "packages": {p: version(p) for p in ["gymnasium", "stable-baselines3", "torch", "numpy"]}}
+        meta = {
+            "config": cfg,
+            "actual_timesteps": model.num_timesteps,
+            "wall_seconds_including_validation": elapsed,
+            "model_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "platform": platform.platform(),
+            "python": platform.python_version(),
+            "packages": {p: version(p) for p in ["gymnasium", "stable-baselines3", "torch", "numpy"]},
+        }
         (folder / "train.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
         print(f"{cfg['algo']}: {model.num_timesteps} steps, {elapsed:.1f}s", flush=True)
         return model

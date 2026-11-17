@@ -25,8 +25,15 @@ def rollout(model, env, n, seed):
             length += 1
             if terminated or truncated:
                 break
-        episodes.append({"seed": seed + i, "reward": total, "length": length,
-                         "terminated": bool(terminated), "truncated": bool(truncated)})
+        episodes.append(
+            {
+                "seed": seed + i,
+                "reward": total,
+                "length": length,
+                "terminated": bool(terminated),
+                "truncated": bool(truncated),
+            }
+        )
     return episodes
 
 
@@ -41,11 +48,22 @@ def evaluate(algo: str, env_id: str = "CartPole-v1", n: int = 20, seed: int = 20
         env.close()
     rewards = [e["reward"] for e in episodes]
     threshold = 450 if env_id == "CartPole-v1" else 200 if env_id == "LunarLander-v3" else None
-    out = {"algo": algo, "env": env_id, "episodes": n, "seed_start": seed,
-           "deterministic": True, "checkpoint": "final", "mean_reward": float(np.mean(rewards)),
-           "std_reward": float(np.std(rewards)), "min_reward": min(rewards), "max_reward": max(rewards),
-           "threshold": threshold, "passed": threshold is not None and float(np.mean(rewards)) >= threshold,
-           "model_sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "episode_results": episodes}
+    out = {
+        "algo": algo,
+        "env": env_id,
+        "episodes": n,
+        "seed_start": seed,
+        "deterministic": True,
+        "checkpoint": "final",
+        "mean_reward": float(np.mean(rewards)),
+        "std_reward": float(np.std(rewards)),
+        "min_reward": min(rewards),
+        "max_reward": max(rewards),
+        "threshold": threshold,
+        "passed": threshold is not None and float(np.mean(rewards)) >= threshold,
+        "model_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "episode_results": episodes,
+    }
     RESULTS.mkdir(exist_ok=True)
     (RESULTS / f"eval_{algo}.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print(f"{algo}: {out['mean_reward']:.2f} +/- {out['std_reward']:.2f}, passed={out['passed']}")
