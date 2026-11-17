@@ -1,0 +1,157 @@
+{
+  "algo": "dqn",
+  "env": "CartPole-v1",
+  "episodes": 20,
+  "seed_start": 2000,
+  "deterministic": true,
+  "checkpoint": "final",
+  "mean_reward": 353.75,
+  "std_reward": 66.95959602626048,
+  "min_reward": 211.0,
+  "max_reward": 465.0,
+  "threshold": 450,
+  "passed": false,
+  "model_sha256": "20ea0279882d0a70741f2d9497cefeb8b101175c3ac5e9c424a3dd6c7e85af1f",
+  "episode_results": [
+    {
+      "seed": 2000,
+      "reward": 423.0,
+      "length": 423,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2001,
+      "reward": 381.0,
+      "length": 381,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2002,
+      "reward": 296.0,
+      "length": 296,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2003,
+      "reward": 291.0,
+      "length": 291,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2004,
+      "reward": 301.0,
+      "length": 301,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2005,
+      "reward": 439.0,
+      "length": 439,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2006,
+      "reward": 366.0,
+      "length": 366,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2007,
+      "reward": 291.0,
+      "length": 291,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2008,
+      "reward": 435.0,
+      "length": 435,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2009,
+      "reward": 384.0,
+      "length": 384,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2010,
+      "reward": 297.0,
+      "length": 297,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2011,
+      "reward": 389.0,
+      "length": 389,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2012,
+      "reward": 435.0,
+      "length": 435,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2013,
+      "reward": 331.0,
+      "length": 331,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2014,
+      "reward": 335.0,
+      "length": 335,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2015,
+      "reward": 413.0,
+      "length": 413,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2016,
+      "reward": 465.0,
+      "length": 465,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2017,
+      "reward": 211.0,
+      "length": 211,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2018,
+      "reward": 309.0,
+      "length": 309,
+      "terminated": true,
+      "truncated": false
+    },
+    {
+      "seed": 2019,
+      "reward": 283.0,
+      "length": 283,
+      "terminated": true,
+      "truncated": false
+    }
+  ]
+}

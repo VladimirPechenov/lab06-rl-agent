@@ -1,0 +1,53 @@
+{
+  "algo": "ppo",
+  "env": "CartPole-v1",
+  "episodes": [
+    {
+      "episode": 1,
+      "seed": 3000,
+      "reward": 500.0,
+      "length": 500,
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "episode": 2,
+      "seed": 3001,
+      "reward": 500.0,
+      "length": 500,
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "episode": 3,
+      "seed": 3002,
+      "reward": 500.0,
+      "length": 500,
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "episode": 4,
+      "seed": 3003,
+      "reward": 500.0,
+      "length": 500,
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "episode": 5,
+      "seed": 3004,
+      "reward": 500.0,
+      "length": 500,
+      "terminated": false,
+      "truncated": true
+    }
+  ],
+  "fps": 50,
+  "frames": 2500,
+  "duration_seconds": 50.0,
+  "model_sha256": "fa065ed2916f095171bcfe67de54423c4cfe1c95d8df41b0b741a8e0b422634c",
+  "video_sha256": "306cc10fe40b4f9f006f1c65f789052552b69dea207efebe311f626fb7693119",
+  "file": "ppo_5_episodes.mp4",
+  "editing": "No cuts or speed changes; original Gymnasium frames with live counters."
+}

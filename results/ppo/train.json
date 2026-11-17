@@ -1,0 +1,31 @@
+{
+  "config": {
+    "algo": "ppo",
+    "env": "CartPole-v1",
+    "total_timesteps": 100352,
+    "seed": 42,
+    "policy": "MlpPolicy",
+    "device": "cpu",
+    "torch_threads": 1,
+    "eval_freq": 10000,
+    "validation_seed": 1000,
+    "validation_episodes": 10,
+    "hyperparams": {
+      "learning_rate": 0.0003,
+      "n_steps": 2048,
+      "batch_size": 64,
+      "gamma": 0.99
+    }
+  },
+  "actual_timesteps": 100352,
+  "wall_seconds_including_validation": 110.62770029999956,
+  "model_sha256": "fa065ed2916f095171bcfe67de54423c4cfe1c95d8df41b0b741a8e0b422634c",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.0",
+  "packages": {
+    "gymnasium": "1.2.3",
+    "stable-baselines3": "2.7.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.5"
+  }
+}
